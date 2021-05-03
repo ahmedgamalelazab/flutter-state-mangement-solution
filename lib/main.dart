@@ -9,7 +9,7 @@ import 'state/inheritedWidgets.dart';
 
 void main() {
   Store<Counter> _store = Store<Counter>(reducers,
-      initialState: Counter.initState(), middleware: [incrementMiddleware]);
+      initialState: Counter.initState(), middleware: [appStateController]);
   runApp(
     StateContainer(
         child: MyApplication(

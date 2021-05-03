@@ -5,7 +5,7 @@ import '../store.dart';
 
 //handle the increment action here
 
-void incrementMiddleware(
+void appStateController(
     Store<Counter> store, dynamic action, NextDispatcher next) {
   int storeBuffer = store.state.number; //read the store
   if (action is Increment) {
