@@ -7,13 +7,10 @@ import '../store.dart';
 
 void incrementMiddleware(
     Store<Counter> store, dynamic action, NextDispatcher next) {
-  int storeBuffer = store.state.number; //read the store
   if (action is Increment) {
-    storeBuffer++; //added one to the value that stored in the storage
-    next(IncrementWithPaylao(payload: storeBuffer));
+    next(IncrementWithPaylao());
     return;
   }
-
   next(Decrement());
   return;
 }
