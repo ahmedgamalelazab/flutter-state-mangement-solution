@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_project/redux/actions.dart';
-import 'redux/middleware/appStateMiddleWare.dart';
+import 'redux/middleware/IncrementMiddleware.dart';
+import 'redux/middleware/decrementMiddleware.dart';
 import 'redux/reducers.dart';
 import 'redux/store.dart';
 import 'state/inheritedWidgets.dart';
 
 void main() {
   Store<Counter> _store = Store<Counter>(reducers,
-      initialState: Counter.initState(), middleware: [incrementMiddleware]);
+      initialState: Counter.initState(),
+      middleware: [incrementMiddleware, decrementMiddleware]);
   runApp(
     StateContainer(
         child: MyApplication(

@@ -6,10 +6,10 @@ Counter reducers(Counter prevState, dynamic action) {
   print("-------------");
   print("In the reducer");
 
-  if (action is Increment) {
+  if (action is IncrementWithPaylao) {
     print(action.payload);
     return Counter.copyWith(prevState, action.payload);
-  } else if (action is Decrement) {
+  } else if (action is DecrementPayLoad) {
     print(action.payload);
     return Counter.copyWith(prevState, action.payload);
   } else {

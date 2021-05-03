@@ -9,14 +9,11 @@ void incrementMiddleware(
     Store<Counter> store, dynamic action, NextDispatcher next) {
   int storeBuffer = store.state.number; //read the store
   if (action is Increment) {
-    //... do some code
-    storeBuffer++;
-    print("store buffer is : $storeBuffer");
-    next(Increment(payload: storeBuffer));
-  } else {
-    print(storeBuffer);
-    storeBuffer--;
-    print("store buffer is : $storeBuffer");
-    next(Decrement(payload: storeBuffer));
+    storeBuffer++; //added one to the value that stored in the storage
+    next(IncrementWithPaylao(payload: storeBuffer));
+    return;
   }
+
+  next(Decrement());
+  return;
 }
