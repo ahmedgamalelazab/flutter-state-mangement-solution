@@ -99,7 +99,22 @@ class MyApplication extends StatelessWidget {
                                 },
                                 child: Text("increment")),
                             Container(
-                                child: Text(state.countetValue.toString())),
+                                child: BlocListener<CounterCubit, CounterState>(
+                              listener: (context, state) {
+                                if (state.gotIncrement) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text("increment"),
+                                    duration: Duration(seconds: 1),
+                                  ));
+                                } else if (state.gotIncrement == false) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text("decrement"),
+                                    duration: Duration(seconds: 1),
+                                  ));
+                                }
+                              },
+                              child: Text(state.countetValue.toString()),
+                            )),
                             RaisedButton(
                                 onPressed: () {
                                   BlocProvider.of<CounterCubit>(context)
