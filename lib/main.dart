@@ -1,135 +1,39 @@
+//preparing to a real simple project represented in patch 1.0.3
+// the aim of this patch is use the bloc with perfect structure as could as possible
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
-import 'package:redux_project/cubit/counter_cubit.dart';
-import 'package:redux_project/redux/actions.dart';
-import 'redux/middleware/appStateMiddleWare.dart';
-import 'redux/reducers.dart';
-import 'redux/store.dart';
-import 'state/inheritedWidgets.dart';
+import 'package:redux_project/buiseniss%20logic/cubit/counter_cubit.dart';
+import 'package:redux_project/presentation/Screens/SecondScreen.dart';
+import 'package:redux_project/presentation/Screens/firstScreen.dart';
+
+import 'presentation/Screens/ThirdScreen.dart';
 
 void main() {
-  Store<Counter> _store = Store<Counter>(reducers,
-      initialState: Counter.initState(), middleware: [appStateController]);
-  runApp(
-    StateContainer(
-        child: MyApplication(
-      store: _store,
-    )),
-  );
+  runApp(MyApplication());
 }
 
+// ignore: must_be_immutable
 class MyApplication extends StatelessWidget {
-  const MyApplication({Key key, this.store}) : super(key: key);
-  final store;
+  CounterCubit _counterCubit = CounterCubit();
+  MyApplication({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return StoreProvider<Counter>(
-        store: store,
-        child: BlocProvider<CounterCubit>(
-          create: (context) => CounterCubit(),
-          child: MaterialApp(
-            home: Scaffold(
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    // color: Colors.red,
-                    // alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        RaisedButton(
-                            onPressed: () {
-                              StateInheritedWidget.of(context).data.increment();
-                            },
-                            child: Text("increment")),
-                        Container(
-                            child: Text(StateInheritedWidget.of(context)
-                                .data
-                                .intialCounterValue
-                                .toString())),
-                        RaisedButton(
-                            onPressed: () {
-                              StateInheritedWidget.of(context).data.decrement();
-                            },
-                            child: Text("increment")),
-                      ],
-                    ),
-                  ),
-                  StoreConnector<Counter, Counter>(
-                    converter: (store) => store.state,
-                    builder: (context, state) => Container(
-                      // color: Colors.red,
-                      // alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          RaisedButton(
-                              onPressed: () {
-                                StoreProvider.of<Counter>(context)
-                                    .dispatch(Increment());
-                              },
-                              child: Text("increment")),
-                          Container(child: Text(state.number.toString())),
-                          RaisedButton(
-                              onPressed: () {
-                                StoreProvider.of<Counter>(context)
-                                    .dispatch(Decrement());
-                              },
-                              child: Text("decrement")),
-                        ],
-                      ),
-                    ),
-                  ),
-                  BlocBuilder<CounterCubit, CounterState>(
-                    builder: (context, state) {
-                      return Container(
-                        // color: Colors.red,
-                        // alignment: Alignment.center,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            RaisedButton(
-                                onPressed: () {
-                                  BlocProvider.of<CounterCubit>(context)
-                                      .increment();
-                                },
-                                child: Text("increment")),
-                            Container(
-                                child: BlocListener<CounterCubit, CounterState>(
-                              listener: (context, state) {
-                                if (state.gotIncrement) {
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text("increment"),
-                                    duration: Duration(seconds: 1),
-                                  ));
-                                } else if (state.gotIncrement == false) {
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text("decrement"),
-                                    duration: Duration(seconds: 1),
-                                  ));
-                                }
-                              },
-                              child: Text(state.countetValue.toString()),
-                            )),
-                            RaisedButton(
-                                onPressed: () {
-                                  BlocProvider.of<CounterCubit>(context)
-                                      .decrement();
-                                },
-                                child: Text("increment")),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+    return MaterialApp(
+      routes: {
+        FirstScreen.PageRoute: (context) => BlocProvider.value(
+              value: _counterCubit,
+              child: FirstScreen(),
             ),
-          ),
-        ));
+        SecondScreen.PageRoute: (context) => BlocProvider.value(
+              value: _counterCubit,
+              child: SecondScreen(),
+            ),
+        ThirdScreen.PageRoute: (context) => BlocProvider.value(
+              value: _counterCubit,
+              child: ThirdScreen(),
+            ),
+      },
+    );
   }
 }
