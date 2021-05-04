@@ -13,9 +13,15 @@ void main() {
 }
 
 // ignore: must_be_immutable
-class MyApplication extends StatelessWidget {
-  CounterCubit _counterCubit = CounterCubit();
+class MyApplication extends StatefulWidget {
   MyApplication({Key key}) : super(key: key);
+
+  @override
+  _MyApplicationState createState() => _MyApplicationState();
+}
+
+class _MyApplicationState extends State<MyApplication> {
+  CounterCubit _counterCubit = CounterCubit();
 
   @override
   Widget build(BuildContext context) {
@@ -35,5 +41,11 @@ class MyApplication extends StatelessWidget {
             ),
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _counterCubit.close();
+    super.dispose();
   }
 }
