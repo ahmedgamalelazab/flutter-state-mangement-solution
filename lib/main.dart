@@ -3,12 +3,17 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:redux_project/buiseniss%20logic/cubit/counter_cubit.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:redux_project/buiseniss%20logic/cubit/CounterCubit/counter_cubit.dart';
 import 'package:redux_project/presentation/Router/genratedRoutes.dart';
-
 import 'buiseniss logic/cubit/internet cubit/internetconnection_cubit.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // this is a bride between flutter native code and flutter code
+  HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: await getApplicationDocumentsDirectory());
   runApp(MyApplication(
     connectivity: Connectivity(),
   ));

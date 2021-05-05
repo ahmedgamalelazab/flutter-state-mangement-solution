@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../buiseniss%20logic/cubit/counter_cubit.dart';
+import '../../buiseniss%20logic/cubit/CounterCubit/counter_cubit.dart';
 import 'ThirdScreen.dart';
 
 class SecondScreen extends StatelessWidget {

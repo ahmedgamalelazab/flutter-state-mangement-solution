@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:redux_project/buiseniss%20logic/cubit/counter_cubit.dart';
+import 'package:redux_project/buiseniss%20logic/cubit/CounterCubit/counter_cubit.dart';
 import 'package:redux_project/buiseniss%20logic/cubit/internet%20cubit/internetconnection_cubit.dart';
 import 'package:redux_project/constant/enums/connectionType.dart';
 import 'package:redux_project/presentation/Screens/SecondScreen.dart';
